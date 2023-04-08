@@ -1,18 +1,15 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from utils import to_cartesian, to_polar
-from matplotlib.patches import Circle, ConnectionPatch
+from utils import to_cartesian
+from matplotlib.patches import Circle
 from target import Target
-from matplotlib.widgets import Button
+
 
 def draw_target():
     target = Target()
-    fig,ax = target.draw()
-    # ax_butt = fig.add_axes([0.8, 0.05, 0.1, 0.075])
-    # add_dart = Button(ax_butt, 'Lancer')
-    # add_dart.on_clicked(target.click_function)
+    fig, ax = target.draw()
     plt.tight_layout()
-    plt.show() 
+    plt.show()
 
 
 def graph_prec_scores_numbers():
@@ -43,20 +40,21 @@ def graph_prec_scores_numbers():
     )
     plt.legend()
     plt.show()
+
+
 def target_with_bubbles():
     target = Target()
     fig, ax = target.draw()
-    means = []
     r = 100
     nb_darts = 2000
     angles = np.arange(0, 360, Target.ANGLE_NUMBER)
-    for r in [0, 50, 103, 150 ] :
+    for r in [0, 50, 103, 150]:
         for angle in angles:
             x, y = to_cartesian(r, t=angle)
             target.add_darts(nb_darts, goal=(x, y), prec=(40, 40))
-            mean = target.df["score"].mean() 
-            ax.add_patch(Circle((x,y), radius = mean , alpha = 0.7))
-            ax.text(x,y,f"{mean:.1f}",va='center', ha='center')
+            mean = target.df["score"].mean()
+            ax.add_patch(Circle((x, y), radius=mean, alpha=0.7))
+            ax.text(x, y, f"{mean:.1f}", va="center", ha="center")
             target.reset()
             if r == 0:
                 break
@@ -65,10 +63,9 @@ def target_with_bubbles():
     )
     plt.tight_layout()
     plt.show()
-       
-if __name__ == "__main__": 
-    draw_target()
-    
 
-    
-    
+
+if __name__ == "__main__":
+    draw_target()
+    # graph_prec_scores_numbers()
+    # target_with_bubbles()

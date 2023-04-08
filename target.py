@@ -53,18 +53,9 @@ class Target:
 
     def draw(self):
         self.fig, self.ax = plt.subplots()
-        # dims_circles = [
-        #     self.R,
-        #     self.R_INNER_BULL,
-        #     self.R_OUTER_BULL,
-        #     self.R_INNER_TRIPLE,
-        #     self.R_OUTER_TRIPLE,
-        #     self.R_INNER_DOUBLE,
-        # ]
         thetas = np.arange(0 - Target.ANGLE_NUMBER / 2, 360, Target.ANGLE_NUMBER)
         numbers_angles = np.arange(0, 360, Target.ANGLE_NUMBER)
 
-        ### Wedge part
         alpha = 0.7
         patches = [
             Wedge(
@@ -149,24 +140,6 @@ class Target:
 
         for patch in patches:
             self.ax.add_patch(patch)
-
-        # for r in dims_circles:
-        #     ax.add_patch(
-        #         Circle([0, 0], radius=r, facecolor="none", edgecolor="black", lw=0.2)
-        #     )
-        # for th in thetas:
-        #     init_x, init_y = to_cartesian(Target.R_OUTER_BULL, th)
-        #     end_x, end_y = to_cartesian(Target.R, th)
-        #     ax.add_patch(
-        #         ConnectionPatch(
-        #             xyA=(init_x, init_y),
-        #             xyB=(end_x, end_y),
-        #             coordsA="data",
-        #             coordsB="data",
-        #             lw=0.2,
-        #         )
-        #     )
-
         for i, num_angle in enumerate(numbers_angles):
             x, y = to_cartesian(1.15 * Target.R, num_angle)
             fp = FontProperties(family="Courier New", style="normal", size=25)
