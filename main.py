@@ -8,16 +8,18 @@ from target import Target
 def draw_target():
     target = Target()
     fig, ax = target.draw()
-    plt.tight_layout()
+    fig.tight_layout()
     plt.show()
 
 
-def graph_prec_scores_numbers():
+def graph_prec_scores_numbers(nb_darts: int, r:int):
+    """
+    Draw a target and performs a specfied number of darts (nb_darts) throws on a full circle with a specified radius (r) for several precisions. 
+    Displays the results on a separate graph.
+    """
     target = Target()
     fig, ax = plt.subplots()
     means = []
-    r = 100
-    nb_darts = 10000
     angles = np.arange(0, 360, Target.ANGLE_NUMBER)
     for prec in [10, 20, 30, 40, 50, 60]:
         means = []
@@ -38,15 +40,17 @@ def graph_prec_scores_numbers():
         ylabel="score moyen",
         title=f"Score moyen pour {nb_darts} fléchettes, visant les triples",
     )
-    plt.legend()
+    fig.legend()
     plt.show()
 
 
-def target_with_bubbles():
+def target_with_bubbles(nb_darts: int, r: int):
+    """
+    Draw a target and performs a specfied number of darts (nb_darts) throws on a full circle with a specified radius (r)
+    Display the results on the target. 
+    """
     target = Target()
     fig, ax = target.draw()
-    r = 100
-    nb_darts = 2000
     angles = np.arange(0, 360, Target.ANGLE_NUMBER)
     for r in [0, 50, 103, 150]:
         for angle in angles:
@@ -61,11 +65,11 @@ def target_with_bubbles():
     ax.set(
         title=f"Score moyen en fonction de l'endroit que l'on vise (avec une certaine précision)",
     )
-    plt.tight_layout()
+    fig.tight_layout()
     plt.show()
 
 
 if __name__ == "__main__":
     draw_target()
-    # graph_prec_scores_numbers()
-    # target_with_bubbles()
+    graph_prec_scores_numbers(nb_darts=5000)
+    target_with_bubbles(nb_darts=5000, r=100)
